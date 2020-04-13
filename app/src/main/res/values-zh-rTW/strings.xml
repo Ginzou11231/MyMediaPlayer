@@ -11,9 +11,11 @@
     <string name="other">其它</string>
     <string name="other_no_item">目前無功能</string>
     <string name="playmode">播放模式</string>
-    <string name="root">目錄</string>
+    <string name="mainmenu">目錄</string>
     <string name="setting">設定</string>
     <string name="song">曲名:</string>
     <string name="no_function">無功能</string>
     <string name="playmode_change_to">播放模式變更為</string>
+    <string name="getpermission">已取得授權</string>
+    <string name="alertdialog_permission">如果您不允許權限，您將無法使用此應用程式，要結束應用程式嗎？</string>
 </resources>

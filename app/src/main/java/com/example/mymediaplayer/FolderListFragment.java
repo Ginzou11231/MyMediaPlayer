@@ -59,7 +59,7 @@ public class FolderListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        textViewTitle.setText(getResources().getString(R.string.root));
+        textViewTitle.setText(getResources().getString(R.string.mainmenu));
         imageButtonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

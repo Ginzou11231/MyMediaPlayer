@@ -9,8 +9,11 @@
     <string name="savestate_songplaypause" translatable="false">SaveState_SongPlayPause</string>
     <string name="savestate_servicebinder" translatable="false">SaveState_ServiceBinder</string>
 
+    <string name="alertdialog_permission">If You Not Allow Permission Can\'t Use This Application. \n Quit This Application Now?</string>
+
     <string name="setting">Setting</string>
-    <string name="root">Root</string>
+    <string name="getpermission">Get Permission</string>
+    <string name="mainmenu">Main Menu</string>
     <string name="files">Files</string>
     <string name="no_music">No Music</string>
     <string name="now_is_playing">Now is Playing:</string>
