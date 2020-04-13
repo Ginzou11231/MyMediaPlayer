@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">MyMediaPlayer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="contentdes" translatable="false">contentdescription</string>
+    <string name="savestate_songname" translatable="false">SaveState_SongName</string>
+    <string name="savestate_songduration" translatable="false">SaveState_SongDuration</string>
+    <string name="savestate_songplaypause" translatable="false">SaveState_SongPlayPause</string>
+    <string name="savestate_servicebinder" translatable="false">SaveState_ServiceBinder</string>
+
+    <string name="setting">Setting</string>
+    <string name="root">Root</string>
+    <string name="files">Files</string>
+    <string name="no_music">No Music</string>
+    <string name="now_is_playing">Now is Playing:</string>
+    <string name="song">Song:</string>
+    <string name="no_music_in_mediaplayer">No Music in MediaPlayer</string>
+    <string name="no_function">No Function</string>
+    <string name="playmode_change_to">PlayMode Change To</string>
+
+
+    <string name="playmode">PlayMode</string>
+    <string name="mode_singlelooping">SingleLooping</string>
+    <string name="mode_folderlooping">FolderLooping</string>
+    <string name="mode_allmedialooping">AllMediaLooping</string>
+    <string name="other">Other</string>
+    <string name="other_no_item">No Item..</string>
+
+
+
+</resources>

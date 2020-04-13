@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">音樂播放器</string>
+    <string name="files">首音樂</string>
+    <string name="mode_allmedialooping">全部循環</string>
+    <string name="mode_folderlooping">資料夾循環</string>
+    <string name="mode_singlelooping">單曲循環</string>
+    <string name="no_music">沒有音樂</string>
+    <string name="no_music_in_mediaplayer">目前沒有音樂</string>
+    <string name="now_is_playing">正在播放:</string>
+    <string name="other">其它</string>
+    <string name="other_no_item">目前無功能</string>
+    <string name="playmode">播放模式</string>
+    <string name="root">目錄</string>
+    <string name="setting">設定</string>
+    <string name="song">曲名:</string>
+    <string name="no_function">無功能</string>
+    <string name="playmode_change_to">播放模式變更為</string>
+</resources>

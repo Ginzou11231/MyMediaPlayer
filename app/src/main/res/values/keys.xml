@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shp_key_data" translatable="false">SHP_KEY_DATA</string>
+    <string name="shp_key_medianame" translatable="false">SHP_KEY_MEDIANAME</string>
+    <string name="shp_key_medialoopmode" translatable="false">SHP_KEY_MEDIALOOPMODE</string>
+    <string name="shp_key_mediaposition" translatable="false">SHP_KEy_MEDIAPOSITION</string>
+</resources>

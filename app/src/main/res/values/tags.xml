@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="target_folder_viewholder" type="id"></item>
+    <item name="target_media_viewholder" type="id"></item>
+    <item name="target_option_adapteritem" type="id"></item>
+    <item name="target_option_viewholder" type="id"></item>
+</resources>

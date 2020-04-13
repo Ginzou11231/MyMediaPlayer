@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/folderListFragment">
+
+    <fragment
+        android:id="@+id/folderListFragment"
+        android:name="com.example.mymediaplayer.FolderListFragment"
+        android:label="根目錄"
+        tools:layout="@layout/fragment_folder_list">
+        <action
+            android:id="@+id/action_folderListFragment_to_mediaDetailFragment"
+            app:destination="@id/mediaDetailFragment"
+            app:popUpTo="@+id/folderListFragment" />
+        <action
+            android:id="@+id/action_folderListFragment_to_mediaListFragment"
+            app:destination="@id/mediaListFragment"
+            app:popUpTo="@+id/folderListFragment" />
+        <action
+            android:id="@+id/action_folderListFragment_to_optionFragment"
+            app:destination="@id/optionFragment"
+            app:popUpTo="@+id/folderListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaListFragment"
+        android:name="com.example.mymediaplayer.MediaListFragment"
+        android:label="{foldername}"
+        tools:layout="@layout/fragment_media_list" >
+        <action
+            android:id="@+id/action_mediaListFragment_to_mediaDetailFragment"
+            app:destination="@id/mediaDetailFragment"
+            app:popUpTo="@+id/mediaListFragment" />
+        <argument
+            android:name="foldername"
+            android:defaultValue="MediaList"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaDetailFragment"
+        android:name="com.example.mymediaplayer.MediaDetailFragment"
+        android:label="{musictitle}"
+        tools:layout="@layout/fragment_media_detail" >
+        <argument
+            android:name="musictitle"
+            app:argType="string"
+            android:defaultValue="MusicTitle" />
+    </fragment>
+    <fragment
+        android:id="@+id/optionFragment"
+        android:name="com.example.mymediaplayer.OptionFragment"
+        android:label="fragment_option"
+        tools:layout="@layout/fragment_option" >
+        <action
+            android:id="@+id/action_optionFragment_to_folderListFragment2"
+            app:destination="@id/folderListFragment"
+            app:popUpTo="@+id/folderListFragment" />
+    </fragment>
+</navigation>
