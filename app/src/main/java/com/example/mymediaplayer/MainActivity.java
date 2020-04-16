@@ -270,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
         if (myBinder == null) {
             bindService(mServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
         } else {

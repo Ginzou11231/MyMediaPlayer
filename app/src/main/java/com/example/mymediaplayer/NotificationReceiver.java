@@ -35,7 +35,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                 case "View": {
                     Intent mIntent = new Intent();
                     mIntent.setClass(context, MainActivity.class);
-                    mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(mIntent);
                     break;
                 }

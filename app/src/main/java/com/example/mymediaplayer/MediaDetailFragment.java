@@ -2,9 +2,11 @@ package com.example.mymediaplayer;
 
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +39,8 @@ public class MediaDetailFragment extends Fragment {
     private MediaControlService.MyBinder mServiceBinder = MainActivity.mServiceBinder();
 
     private detailfragReceiver receiver;
+
+
 
     public class detailfragReceiver extends BroadcastReceiver {
         @Override
@@ -88,7 +93,7 @@ public class MediaDetailFragment extends Fragment {
         initFragment();
         setUIListener();
     }
-    
+
     private void registerMediaReceiver() {
         receiver = new detailfragReceiver();
         IntentFilter filter = new IntentFilter();
