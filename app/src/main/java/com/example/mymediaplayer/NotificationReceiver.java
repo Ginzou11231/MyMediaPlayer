@@ -3,8 +3,6 @@ package com.example.mymediaplayer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.RemoteViews;
-import android.widget.Toast;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -13,7 +11,6 @@ public class NotificationReceiver extends BroadcastReceiver {
     public NotificationReceiver(MediaControlService.MyBinder myBinder) {
         mBinder = myBinder;
     }
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -21,10 +18,14 @@ public class NotificationReceiver extends BroadcastReceiver {
             switch (intent.getAction()) {
                 case "Play": {
                     mBinder.mediaPlayPause();
+                    context.sendBroadcast(new Intent(context.getResources().getString(R.string.miniplayer_receiver_action)));
+                    context.sendBroadcast(new Intent(context.getResources().getString(R.string.detail_receiver_action)));
                     break;
                 }
                 case "Stop": {
                     mBinder.mediaStop();
+                    context.sendBroadcast(new Intent(context.getResources().getString(R.string.miniplayer_receiver_action)));
+                    context.sendBroadcast(new Intent(context.getResources().getString(R.string.detail_receiver_action)));
                     break;
                 }
                 case "Next": {
@@ -34,8 +35,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 case "View": {
                     Intent mIntent = new Intent();
                     mIntent.setClass(context, MainActivity.class);
-                    mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(mIntent);
                     break;
                 }

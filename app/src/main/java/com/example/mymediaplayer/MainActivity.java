@@ -6,9 +6,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.net.Uri;
@@ -32,16 +35,18 @@ enum MediaLoopMode {SingleLooping, FolderLooping, AllMediaLooping}
 
 public class MainActivity extends AppCompatActivity {
 
-    private ConstraintLayout miniMediaPlayer;
-    private NavController navController;
-    private ImageButton imageButtonMiniPlay, imageButtonMiniStop, imageButtonMiniNext;
-    private TextView textViewMiniName, textViewMiniCurrentTime, textViewMiniDuration;
+    ConstraintLayout miniMediaPlayer;
+    NavController navController;
+    ImageButton imageButtonMiniPlay, imageButtonMiniStop, imageButtonMiniNext;
+    TextView textViewMiniName, textViewMiniCurrentTime, textViewMiniDuration;
+    activityReceiver receiver;
 
     private boolean isExit = false;
 
     private Intent mServiceIntent;
 
     private static MediaControlService.MyBinder myBinder;
+
     public static synchronized MediaControlService.MyBinder mServiceBinder() {
         return myBinder;
     }
@@ -50,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            if(textViewMiniName.getText().equals(myBinder.getCurrentMediaData().getTitle()) == false)
-            {
+            if (textViewMiniName.getText().equals(myBinder.getCurrentMediaData().getTitle()) == false) {
                 textViewMiniName.setText(myBinder.getCurrentMediaData().getTitle());
                 String duration = DataManager.instance().timeToString(myBinder.getMediaDuration());
                 textViewMiniDuration.setText(" / " + duration);
@@ -62,25 +66,34 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    class activityReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (myBinder.isPlaying()) {
+                imageButtonMiniPlay.setImageResource(R.drawable.ic_pause_black_48dp);
+            } else {
+                imageButtonMiniPlay.setImageResource(R.drawable.ic_play_arrow_black_48dp);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initDataManager();
+        registerMediaReceiver();
         initLayoutUI();
 
-        if(savedInstanceState != null)
-        {
+        if (savedInstanceState != null) {
             myBinder = (MediaControlService.MyBinder) savedInstanceState.getBinder(getResources().getString(R.string.savestate_servicebinder));
 
-            if(myBinder != null) {
+            if (myBinder != null) {
                 myBinder.setActivityHandler(handler);
                 myBinder.startThread();
             }
-        }
-        else
-        {
+        } else {
             mServiceIntent = new Intent(this, MediaControlService.class);
             startService(mServiceIntent);
         }
@@ -100,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             cursor.moveToFirst();
 
             MediaData mediaData;
-            for (int i = 0 , j = 0; i < cursor.getCount(); i++) {
+            for (int i = 0, j = 0; i < cursor.getCount(); i++) {
 
                 mediaData = new MediaData();
                 mediaData.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)));
@@ -123,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     folderList.add(new FolderData());
                     folderList.get(j).setFolderPath(file);
                     folderList.get(j).setFolderName(file.getName());
-                }
-                else if (folderList.get(j).getFolderPath().getPath().equals(file.getPath()) == false) {
+                } else if (folderList.get(j).getFolderPath().getPath().equals(file.getPath()) == false) {
                     folderList.get(j).setTotalTime(DataManager.instance().timeToString(totalTime));
                     folderList.get(j).setTotalSong(folderList.get(j).getMediaDatas().size() + " " + getResources().getString(R.string.files));
                     totalTime = 0;
@@ -150,6 +162,13 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (NullPointerException e) {
         }
+    }
+
+    private void registerMediaReceiver() {
+        receiver = new activityReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getResources().getString(R.string.miniplayer_receiver_action));
+        registerReceiver(receiver, filter);
     }
 
     private void initLayoutUI() {
@@ -252,11 +271,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-        if(myBinder == null) {
+        if (myBinder == null) {
             bindService(mServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-        }
-        else
-        {
+        } else {
             if (myBinder.isPlaying()) {
                 imageButtonMiniPlay.setImageResource(R.drawable.ic_pause_black_48dp);
             } else {
@@ -304,6 +321,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        outState.putBinder(getResources().getString(R.string.savestate_servicebinder) , myBinder);
+        outState.putBinder(getResources().getString(R.string.savestate_servicebinder), myBinder);
     }
+
+
 }
+

@@ -22,7 +22,6 @@
     <string name="no_function">No Function</string>
     <string name="playmode_change_to">PlayMode Change To</string>
 
-
     <string name="playmode">PlayMode</string>
     <string name="mode_singlelooping">SingleLooping</string>
     <string name="mode_folderlooping">FolderLooping</string>
@@ -30,6 +29,8 @@
     <string name="other">Other</string>
     <string name="other_no_item">No Item..</string>
 
+    <string name="miniplayer_receiver_action" translatable="false">MINIPLAYER_RECEIVER_ACTION</string>
+    <string name="detail_receiver_action" translatable="false">DETAIL_RECEIVER_ACTION</string>
 
 
 </resources>

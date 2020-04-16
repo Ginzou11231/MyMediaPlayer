@@ -90,7 +90,12 @@ public class MediaControlService extends Service {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            NotificationChannel mNotificationchannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel mNotificationchannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+            mNotificationchannel.enableVibration(false);
+            mNotificationchannel.enableLights(false);
+            mNotificationchannel.setVibrationPattern(new long[]{0});
+            mNotificationchannel.setSound(null , null);
+
             mNotificationManager.createNotificationChannel(mNotificationchannel);
 
             PendingIntent notifyPlay = PendingIntent.getBroadcast(this, 0, new Intent(playAction), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -142,7 +147,9 @@ public class MediaControlService extends Service {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentIntent(notifyView)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setWhen(System.currentTimeMillis())
+                .setVibrate(new long[]{0})
+                .setSound(null)
                 .setCustomContentView(collasped)
                 .setCustomBigContentView(expended);
 

@@ -1,7 +1,10 @@
 package com.example.mymediaplayer;
 
 
-import android.media.MediaPlayer;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +34,21 @@ public class MediaDetailFragment extends Fragment {
     private SeekBar seekBarTimeDuration;
 
     private MediaControlService.MyBinder mServiceBinder = MainActivity.mServiceBinder();
+
+    private detailfragReceiver receiver;
+
+    public class detailfragReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mServiceBinder.isPlaying()) {
+                miniPlay.setImageResource(R.drawable.ic_pause_black_48dp);
+                imageButtonPlay.setImageResource(R.drawable.ic_pause_black_96dp);
+            } else {
+                miniPlay.setImageResource(R.drawable.ic_play_arrow_black_48dp);
+                imageButtonPlay.setImageResource(R.drawable.ic_play_arrow_black_96dp);
+            }
+        }
+    }
 
     public MediaDetailFragment() {
         // Required empty public constructor
@@ -66,6 +84,19 @@ public class MediaDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        registerMediaReceiver();
+        initFragment();
+        setUIListener();
+    }
+    
+    private void registerMediaReceiver() {
+        receiver = new detailfragReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getResources().getString(R.string.detail_receiver_action));
+        requireActivity().registerReceiver(receiver , filter);
+    }
+
+    private void initFragment() {
         mServiceBinder.setActivityHandler(handler);
         mServiceBinder.initMediaPlayer(0);
         mServiceBinder.startThread();
@@ -86,8 +117,6 @@ public class MediaDetailFragment extends Fragment {
         String countTime = DataManager.instance().timeToString(mServiceBinder.getMediaDuration());
         textViewCountTime.setText(countTime);
         miniDuration.setText(" / " + countTime);
-
-        setUIListener();
     }
 
     private void setUIListener() {
